@@ -1,3 +1,5 @@
+require "http/headers"
+
 require "./qpack/*"
 
 module QPack

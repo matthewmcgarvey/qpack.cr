@@ -3,7 +3,7 @@ module QPack
     # https://quicwg.org/base-drafts/draft-ietf-quic-qpack.html#name-static-table-2
     STATICS = [
       {":authority", ""},
-      {":path" => "/"},
+      {":path", "/"},
       {"age", "0"},
       {"content-disposition", ""},
       {"content-length", "0"},
@@ -102,5 +102,22 @@ module QPack
       {"x-frame-options", "deny"},
       {"x-frame-options", "sameorigin"},
     ]
+
+    def value_at(idx : Int32) : String
+      STATICS[idx][1]
+    end
+
+    def find_index(name : String, value : String) : Int32?
+      first_idx : Int32? = nil
+      STATICS.each_with_index do |entry, idx|
+        if entry[0] == name
+          if entry[1] == value
+            return idx
+          end
+          first_idx = idx unless first_idx
+        end
+      end
+      return first_idx
+    end
   end
 end
